@@ -20,7 +20,7 @@ STRIPE_SECRET_KEY=sk_test_*****
 ```
 6. docker-compose up -d --build
 
-**Laravel環境構築およびstripe CLI環境構築**
+**Laravel環境構築**
 
 1. docker-compose exec php bash
 2. composer install
@@ -78,7 +78,8 @@ chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
-11. Stripe CLIの認証（初回のみ）  
+**stripe CLI環境構築**
+1. Stripe CLIの認証（初回のみ）  
 Stripe CLIを初めて利用する場合、以下のコマンドでStripeアカウントと認証します
 ``` bash
 docker-compose exec stripe-cli stripe login
@@ -87,12 +88,12 @@ docker-compose exec stripe-cli stripe login
 指示に従い、URLにアクセスしペアリングコードを入力して認証を完了してください  
 認証が完了すると「Done! The Stripe CLI is configured for your account...」と表示されます
 
-15. Webhookシークレットキーの取得
+2. Webhookシークレットキーの取得
 ``` bash
 docker-compose exec stripe-cli stripe listen --print-secret
 ```
 
-16. 取得したWebhookシークレットキーを、docker-compose用.「.env」とLaravel用.「.env」の2か所に記載
+3. 取得したWebhookシークレットキーを、docker-compose用.「.env」とLaravel用.「.env」の2か所に記載
 ``` text
 STRIPE_WEBHOOK_SECRET=*****
 ```
