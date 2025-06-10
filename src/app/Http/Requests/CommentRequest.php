@@ -24,7 +24,7 @@ class CommentRequest extends FormRequest
         return [
             'item_id.required' => '商品IDが指定されていません',
             'comment.required' => 'コメントを入力してください',
-            'comment.max'      => 'コメントは200文字以内で入力してください',
+            'comment.max'      => 'コメントは255文字以内で入力してください',
         ];
     }
 }

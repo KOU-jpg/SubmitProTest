@@ -29,7 +29,7 @@ class ExhibitionRequest extends FormRequest
         'brand' => 'required|max:255',
         'category' => 'required',
         'condition' => 'required',
-        'price' => 'required|integer|min:0',
+        'price' => 'required|integer|min:50|max:999999999',
     ];}
     public function messages(){
     return [
@@ -44,6 +44,7 @@ class ExhibitionRequest extends FormRequest
         'condition.required' => '商品の状態は必須です',
         'price.required' => '価格は必須です',
         'price.integer' => '不適切な金額が入力されています',
-        'price.min' => '価格は0円以上で入力してください',
+        'price.min' => '価格は50円以上で入力してください',
+        'price.max' => '価格は999999999円以下で入力してください',
     ];}
 }

@@ -42,7 +42,7 @@ main {
 .product-image-box img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* 画像の縦横比を保ったまま収める */
+    object-fit: contain;
     border-radius: 4px;
 }
 
@@ -69,6 +69,8 @@ main {
     padding: 5px 12px;
     display: flex;
     flex-direction: column;
+    max-height: 350px;
+    max-width: 370px;
     min-width: 320px;
 
 }
@@ -206,8 +208,8 @@ main {
     font-size: 13px;
     border-radius: 12px;
     padding: 2px 12px;
-    white-space: nowrap;   /* タグ内で折り返さない */
-    flex: 0 0 auto;        /* タグも縮まない */
+    white-space: nowrap;
+    flex: 0 0 auto;
 }
 
 .product-comments-section {
@@ -232,9 +234,9 @@ main {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: flex-start; /* 左端から配置開始 */
+    justify-content: flex-start; 
     gap: 8px;
-    padding: 0 8px;
+    padding: 0 20px;
     width: 100%;
     margin-left: auto;
 }
@@ -244,11 +246,10 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0 8px;
+    padding: 0 20px;
     width: 100%;
 }
 
-/* ユーザーアイコン */
 .comment-user-icon {
     width: 36px;
     height: 36px;

@@ -54,7 +54,6 @@ main {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    /* 画像の縦横比を保ったまま収める */
     border-radius: 4px;
 }
 
@@ -147,7 +146,7 @@ hr {
     justify-content: space-between;
     align-items: center;
     padding: 24px 36px;
-    min-width: 0;/* 親要素の幅制限を解除 */
+    min-width: 0;
 }
 
 .order-row:first-child {
@@ -157,17 +156,16 @@ hr {
 .order-label,
 .order-value {
     white-space: nowrap;
-    /* 折り返し禁止 */
 }
 
 .order-label {
     font-size: 16px;
-    margin-right: 32px; /* 例: 32px分だけ右にスペース */
+    margin-right: 32px;
 }
 
 .order-value {
     font-size: 18px;
-    width: 150px; /* 例: 必要に応じて調整 */
+    width: 150px;
     text-align: right;
 }
 
