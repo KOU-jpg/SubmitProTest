@@ -43,7 +43,7 @@
                             <div class="error-message">{{ $message }}</div>
                         @enderror
                     </div>
-                    <select class="payment-select" name="payment_method" required>
+                    <select class="payment-select" name="payment_method" id="payment-select" required>
                         <option value="">選択してください</option>
                         <option value="convenience">コンビニ払い</option>
                         <option value="card">カード払い</option>
@@ -87,4 +87,20 @@
             </section>
         </div>
     </form>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('payment-select');
+        const summary = document.getElementById('summary-payment-method');
+
+        function updateSummary() {
+            summary.textContent = select.options[select.selectedIndex].text;
+        }
+
+        select.addEventListener('change', updateSummary);
+
+        // ページ読込時にも反映
+        updateSummary();
+    });
+    </script>
 @endsection
