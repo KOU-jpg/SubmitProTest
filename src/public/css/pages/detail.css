@@ -1,0 +1,374 @@
+main {
+    width: 100%;
+    padding: 36px 48px;
+    box-sizing: border-box;
+}
+
+.error-message {
+    color: #FA5C65;
+    font-size: 14px;
+    margin-left: 0.5em;
+    display: block;
+    margin: 0px 0px 10px 0px;
+}
+
+.product-detail-container {
+    display: flex;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.product-image-area {
+    display: flex;
+    justify-content: center;
+}
+
+.product-image-box {
+    width: 340px;
+    height: 340px;
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #555;
+    border-radius: 4px;
+    position: relative;
+
+}
+
+.product-image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 画像の縦横比を保ったまま収める */
+    border-radius: 4px;
+}
+
+.sold-label {
+    position: absolute;
+    left: -40px;
+    top: 18px;
+    width: 140px;
+    transform: rotate(-45deg);
+    background: #ff2d2d;
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    padding: 6px 0;
+    z-index: 2;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    user-select: none;
+}
+
+.product-info-area {
+    padding: 5px 12px;
+    display: flex;
+    flex-direction: column;
+    min-width: 320px;
+
+}
+
+.product-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.product-brand {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+.product-price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.tax-in {
+    font-size: 14px;
+    color: #888;
+    margin-left: 4px;
+}
+
+.product-actions {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0px;
+    flex-direction: column;
+
+}
+
+.product-icons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 18px;
+}
+
+.icon-star {
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px; 
+}
+
+.icon-star:hover {
+    transform: scale(1.1);
+}
+
+.icon-star.active {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.icon-count {
+    font-size: 14px;
+    margin-left: 3px;
+}
+
+.purchase-btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    background: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px 36px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.purchase-btn:visited {
+    color: #fff;
+}
+.purchase-btn:hover {
+    background: #ff3b2e;
+}
+
+.purchase-btn.soldout {
+    background: #bbb !important;
+    color: #fff !important;
+    cursor: not-allowed;
+    border: none;
+    opacity: 0.7;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 24px 0 8px 0;
+}
+
+.product-desc {
+    font-size: 15px;
+    color: #222;
+    margin-bottom: 8px;
+    line-height: 1.7;
+}
+
+.product-info-section {
+    margin-bottom: 16px;
+}
+
+.product-meta {
+    max-width: 370px;
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+}
+
+.meta-label {
+    flex: 0 0 auto;
+}
+
+.category-tag {
+    display: inline-block;
+    background: #eee;
+    color: #555;
+    font-size: 13px;
+    border-radius: 12px;
+    padding: 2px 12px;
+    white-space: nowrap;   /* タグ内で折り返さない */
+    flex: 0 0 auto;        /* タグも縮まない */
+}
+
+.product-comments-section {
+    margin-top: 16px;
+}
+
+.comment-list {
+    max-height: 350px;
+    max-width: 370px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.comment-item {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+}
+
+/* 自分のコメント（右寄せ） */
+.my-comment .comment-header {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start; /* 左端から配置開始 */
+    gap: 8px;
+    padding: 0 8px;
+    width: 100%;
+    margin-left: auto;
+}
+
+/* 他人のコメント（左寄せ） */
+.other-comment .comment-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 8px;
+    width: 100%;
+}
+
+/* ユーザーアイコン */
+.comment-user-icon {
+    width: 36px;
+    height: 36px;
+    background: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.comment-user-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.comment-user {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+    color: #444;
+    padding: 2px 8px;
+}
+
+.my-comment .comment-bubble {
+    width: 90%;
+    position: relative;
+    background: #bdbdbd;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    word-break: break-word;
+    margin: 18px 0px 4px 18px;
+
+}
+
+.other-comment .comment-bubble {
+    width: 90%;
+    position: relative;
+    background: #bdbdbd;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    word-break: break-word;
+    margin: 18px 18px 4px 0px;
+}
+
+.comment-form-section {
+    width: 100%;
+    max-width: 370px;
+    margin-top: 8px auto 0px;
+}
+
+.comment-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.comment-textarea {
+    width: 100%;
+    min-height: 70px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 15px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.comment-submit-btn {
+    width: 100%;
+    background: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin: 6px 0px;
+}
+
+.comment-submit-btn:hover {
+    background: #ff4d3a;
+
+}
+
+.comment-submit-btn.soldout{
+    background: #bbb !important;
+    color: #fff !important;
+    cursor: not-allowed;
+    border: none;
+    opacity: 0.7;
+}
+
+.comment-login-btn {
+    display: inline-block;
+    width: 100%;
+    background: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin: 6px 0px;
+}
+
+.comment-login-btn:hover {
+    background: #ff4d3a;
+}

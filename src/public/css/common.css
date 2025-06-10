@@ -1,0 +1,156 @@
+.header {
+    background: #000;
+}
+
+.header__inner {
+    margin: 0 auto;
+    padding: 18px 20px;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+}
+
+.header-search {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+}
+
+.header-search input[type="text"] {
+    width: 480px;
+    max-width: 100%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    background: #fff;
+    margin: 0 32px;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: nowrap;
+    min-width: 180px;
+    white-space: nowrap;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 0 6px;
+    transition: color 0.2s;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.nav-link:hover {
+    color: #ff6b6b;
+}
+.exhibit-btn {
+    background: #fff;
+    color: #111;
+    border-radius: 2px;
+    padding: 6px 16px;
+    font-weight: bold;
+    margin-left: 8px;
+    transition: background 0.2s, color 0.2s;
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.exhibit-btn:hover {
+    background: #ff6b6b;
+    color: #fff;
+}
+
+/* --- レスポンシブ対応 --- */
+
+/* PC幅 (1400px以上) */
+@media (min-width: 1400px) {
+    .header__inner {
+        max-width: 100%;
+    }
+
+    .header-search input[type="text"] {
+        width: 480px;
+    }
+}
+
+/* タブレット幅 (768px〜850px) */
+@media (max-width: 850px) and (min-width: 768px) {
+    .header__inner {
+        padding: 12px 10px;
+        gap: 12px;
+    }
+
+    .header-search input[type="text"] {
+        width: 320px;
+        font-size: 16px;
+        margin: 0 8px;
+    }
+
+    .header-nav {
+        gap: 8px;
+        min-width: 140px;
+    }
+
+    .nav-link {
+        font-size: 15px;
+        padding: 0 4px;
+    }
+
+    .exhibit-btn {
+        padding: 5px 10px;
+        font-size: 15px;
+        margin-left: 4px;
+    }
+}
+
+/* スマホ幅 (〜767px) */
+@media (max-width: 767px) {
+    .header__inner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 8px 4px;
+        gap: 8px;
+    }
+
+    .header-search {
+        justify-content: flex-start;
+        margin-bottom: 8px;
+    }
+
+    .header-search input[type="text"] {
+        width: 100%;
+        font-size: 15px;
+        margin: 0;
+    }
+
+    .header-nav {
+        justify-content: flex-start;
+        gap: 6px;
+        min-width: 0;
+        overflow-x: auto;
+    }
+
+    .nav-link {
+        font-size: 14px;
+        padding: 0 2px;
+    }
+
+    .exhibit-btn {
+        font-size: 14px;
+        padding: 4px 8px;
+        margin-left: 2px;
+    }
+}
