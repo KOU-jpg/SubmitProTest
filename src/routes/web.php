@@ -62,22 +62,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-// 認証案内ページ
-Route::get('/verify-email', [AuthController::class, 'verifyEmailNotice'])->middleware('auth')->name('verification.notice');
+Route::middleware('auth')->group(function () {
+    // 認証案内ページ
+    Route::get('/verify-email', [AuthController::class, 'verifyEmailNotice'])
+        ->name('verification.notice');
 
-// 認証リンク（メール内のリンクがここに飛んでくる）
-Route::get('/verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])
-    ->middleware(['auth', 'signed'])
-    ->name('verification.verify');
+    // 認証リンク（メール内のリンクがここに飛んでくる）
+    Route::get('/verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])
+        ->middleware('signed')
+        ->name('verification.verify');
 
-// 認証メール再送信
-Route::post('/verify-email/resend', [AuthController::class, 'resendVerificationEmail'])
-    ->middleware(['auth', 'throttle:6,1'])
-    ->name('verification.send');
+    // 認証メール再送信
+    Route::post('/verify-email/resend', [AuthController::class, 'resendVerificationEmail'])
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
+});
 
 
 //購入処理
 Route::post('/purchase/{item_id}/checkout', [StripePaymentController::class, 'checkout'])->name('purchase.checkout');
 Route::get('/purchase/cancel/{item_id}', [StripePaymentController::class, 'cancel'])->name('purchase.cancel');
-// Stripe Webhook（認証不要）
+
+// Stripe Webhook
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
