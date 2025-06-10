@@ -7,26 +7,27 @@
 **Dockerビルド**
 1. `git@github.com:KOU-jpg/FleaMarketApp.git`
 2. DockerDesktopアプリを立ち上げる
-3. docker-compose up -d --build
-
-**Laravel環境構築およびstripe CLI環境構築**
-1. docker-compose用.「.env」を作成する  
+3. docker-compose用.「.env」を作成する  
 「.env.stripe.example」ファイルを 「.env」ファイルに命名を変更。または、新しく「.env」ファイルを作成
 
-2. 公開可能キーとシークレットキーの取得  
+4. 公開可能キーとシークレットキーの取得  
 [Stripeダッシュボード](https://dashboard.stripe.com/)にログインし、開発者」→「APIキー」から公開可能キ-を取得
 
-3. 取得した公開可能キーとシークレットキーを、docker-compose用.「.env」とLaravel用.「.env」の2か所に記載
+5. 取得した公開可能キーとシークレットキーを、docker-compose用.「.env」に記載
 ``` text
 STRIPE_PUBLIC_KEY=pk_test_*****
 STRIPE_SECRET_KEY=sk_test_*****
 ```
-4. docker-compose exec php bash
-5. composer install
-6. Laravel用.「.env」を作成する  
+6. docker-compose up -d --build
+
+**Laravel環境構築およびstripe CLI環境構築**
+
+1. docker-compose exec php bash
+2. composer install
+3. Laravel用.「.env」を作成する  
 「.env.laravel.example」ファイルを 「.env」ファイルに命名を変更。または、新しく「.env」ファイルを作成してくだい
 
-7. 「.env」に以下の環境変数を追加
+4. 「.env」に以下の環境変数を追加
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -44,40 +45,40 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=no-reply@example.com
 MAIL_FROM_NAME="【模擬案件フリマアプリ】メール認証"
 ```
-8. 2で取得した公開可能キーとシークレットキーをLaravel用.「.env」にも記載
+5. 「Dockerビルド」の4.で取得した公開可能キーとシークレットキーをLaravel用.「.env」にも記載
 ``` text
 STRIPE_PUBLIC_KEY=pk_test_*****
 STRIPE_SECRET_KEY=sk_test_*****
 ```
 
-9. アプリケーションキーの作成
+6. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
 ```
 
-10. シンボリックリンク作成
+7. シンボリックリンク作成
 ``` bash
 php artisan storage:link
 ```
 
-11. マイグレーションの実行
+8. マイグレーションの実行
 ``` bash
 php artisan migrate
 ```
 
-12. シーディングの実行
+9. シーディングの実行
 ``` bash
 php artisan db:seed
 ```
 
-13. ディレクトリ権限の設定  
+10. ディレクトリ権限の設定  
 Laravelがログやキャッシュを書き込めるよう、storageとbootstrap/cacheディレクトリの権限を設定してください
 ``` bash
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
-14. Stripe CLIの認証（初回のみ）  
+11. Stripe CLIの認証（初回のみ）  
 Stripe CLIを初めて利用する場合、以下のコマンドでStripeアカウントと認証します
 ``` bash
 docker-compose exec stripe-cli stripe login
@@ -90,8 +91,6 @@ docker-compose exec stripe-cli stripe login
 ``` bash
 docker-compose exec stripe-cli stripe listen --print-secret
 ```
-
-
 
 16. 取得したWebhookシークレットキーを、docker-compose用.「.env」とLaravel用.「.env」の2か所に記載
 ``` text
