@@ -19,8 +19,13 @@
     class="verify-btn">認証はこちらから
     </a>
     <form method="POST" action="{{ route('verification.send') }}">
-    @csrf
-    <button type="submit" class="resend-link">認証メールを再送する</button>
+      @csrf
+      <button type="submit" class="resend-link">認証メールを再送する</button>
     </form>
+    @if(session('message'))
+      <div>
+          {{ session('message') }}
+      </div>
+    @endif
   </div>
 @endsection

@@ -75,6 +75,6 @@ public function showLoginForm()  {  return view('auth/login');  }
       return redirect('/mypage/profile');
   }
   $request->user()->sendEmailVerificationNotification();
-  return back()->with('message', 'Verification link sent!');
+  return back()->with('message', 'メールを再送しました');
 }
 }

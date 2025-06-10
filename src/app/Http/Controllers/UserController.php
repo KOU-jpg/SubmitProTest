@@ -65,6 +65,12 @@ public function show(Request $request)
 
         // プロフィール画像の更新処理
         if ($request->hasFile('profile_image')) {
+            // 既存プロフィール取得
+            $profile = Profile::where('user_id', $user->id)->first();
+            if ($profile && $profile->image_path) {
+                // 画像ファイルが存在すれば削除
+                \Storage::disk('public')->delete($profile->image_path);
+            }
             $image = $request->file('profile_image');
             // 新しい画像を profile_images に保存
             $path = $image->store('images/profile_images', 'public');
