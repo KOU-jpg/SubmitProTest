@@ -10,7 +10,7 @@
 3. docker-compose up -d --build
 
 **Laravel環境構築およびstripe CLI環境構築**
-1. docker-compose用.「.env」を作成する
+1. docker-compose用.「.env」を作成する  
 「.env.stripe.example」ファイルを 「.env」ファイルに命名を変更。または、新しく「.env」ファイルを作成
 
 2. 公開可能キーとシークレットキーの取得  
