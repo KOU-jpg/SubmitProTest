@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,5 +41,11 @@ class DatabaseSeeder extends Seeder
             ItemImageTableSeeder::class,
             CommentsTableSeeder::class,
         ]);
+
+        // 取引メッセージで送信された画像の削除
+$directory = storage_path('app/public/transaction_images');
+        if (File::exists($directory)) {
+            File::deleteDirectory($directory);
+        }
     }
 }

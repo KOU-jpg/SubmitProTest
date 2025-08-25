@@ -25,9 +25,13 @@ class CreateItemsTable extends Migration
             $table->timestamp('sold_at')->nullable();
             $table->string('payment_status')->nullable();
             $table->timestamp('payment_expiry')->nullable();
+            $table->enum('status', ['trading', 'completed','expired'])->nullable()->default(null);
             $table->unsignedInteger('favorite_count')->default(0);
             $table->unsignedInteger('like_count')->default(0);
+            $table->timestamp('last_buyer_access')->nullable();
+            $table->timestamp('last_seller_access')->nullable();
             $table->timestamps();
+            
         });
     }
 
@@ -39,5 +43,10 @@ class CreateItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('items');
+    }
+
+        public function transactionMessages()
+    {
+        return $this->hasMany(TransactionMessage::class);
     }
 }

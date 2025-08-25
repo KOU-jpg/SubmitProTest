@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+@include('components.header')
+<main>
     <div class="profile-container">
         <h2>プロフィール設定</h2>
         <form method="POST" action="{{ route('mypage.profile.update') }}" enctype="multipart/form-data" novalidate>
@@ -72,4 +74,5 @@
             <button type="submit" class="update-btn">更新する</button>
         </form>
     </div>
+</main>
 @endsection

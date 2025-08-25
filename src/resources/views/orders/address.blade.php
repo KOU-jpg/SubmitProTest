@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+@include('components.header')
+<main>
     <div class="profile-container">
         <h2>配送先住所の編集</h2>
         <form method="POST" action="{{ route('address.update', ['item_id' => $item->id]) }}"
@@ -46,4 +48,5 @@
             <button type="submit" class="update-btn">更新する</button>
         </form>
     </div>
+</main>
 @endsection

@@ -19,7 +19,10 @@ class Item extends Model
         'payment_status',
         'payment_expiry',
         'favorite_count',
-        'like_count'
+        'like_count',
+        'status',
+        'last_buyer_access',
+        'last_seller_access',
     ];
 
     public function user()    {
@@ -40,4 +43,17 @@ class Item extends Model
     public function favorites()    {
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
+    public function transactionMessages()
+    {
+        return $this->hasMany(TransactionMessage::class);
+    }
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, 'buyer_id');
+    }
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'item_id');
+    }
+    
 }

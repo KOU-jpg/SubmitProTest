@@ -11,6 +11,8 @@
 
 
 @section('content')
+@include('components.header')
+<main>
     {{-- エラーメッセージの表示 --}}
     @if(session('error'))
         <div class="alert alert-danger">
@@ -87,6 +89,7 @@
             </section>
         </div>
     </form>
+</main>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -103,4 +106,5 @@
         updateSummary();
     });
     </script>
+
 @endsection

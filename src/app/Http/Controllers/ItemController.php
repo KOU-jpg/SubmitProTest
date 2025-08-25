@@ -89,6 +89,79 @@ class ItemController extends Controller
         return redirect()->route('items.detail', $request['item_id'])
                          ->with('success', 'コメントを投稿しました');
     }
+
+
+
+//出品取り消し  
+    public function cancel($item_id)
+    {
+        // 該当商品取得
+        $item = Item::findOrFail($item_id);
+
+        // 取引状態が「trading」以外のときのみキャンセル可能とする
+        if ($item->status === 'trading') {
+            return redirect()->back()->with('error', '取引中の出品は取り消せません。');
+        }
+
+        // 商品削除（物理削除）
+        $item->delete();
+
+        return redirect()->route('mypage');
+    }  
+
+// 評価フォーム表示
+public function showRatingForm(Item $item)
+{
+    // 購入者でなければ403エラー
+    if ($item->buyer_id !== auth()->id()) {
+        abort(403);
+    }
+
+    return view('items.rate', compact('item'));
+}
+
+// 評価送信処理
+    public function rateSeller(Request $request, Item $item)
+    {
+        $user = auth()->user();
+        $ratingValue = $request->input('rating');
+
+        // バリデーション（1～5の整数かどうか）
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        // 取引相手ユーザーIDを判定
+        if ($item->user_id === $user->id) {
+            // ログインユーザーが出品者なら購入者が評価対象
+            $rateeId = $item->buyer_id;
+        } elseif ($item->buyer_id === $user->id) {
+            // ログインユーザーが購入者なら出品者が評価対象
+            $rateeId = $item->user_id;
+        } else {
+            // 取引当事者でない場合はエラー
+            abort(403, '取引当事者ではありません。');
+        }
+
+        // 評価保存（評価者はログインユーザー、被評価者は取引相手）
+        \App\Models\Rating::updateOrCreate(
+            [
+                'rater_id' => $user->id,
+                'ratee_id' => $rateeId,
+                'item_id' => $item->id,
+            ],
+            [
+                'score' => $ratingValue,
+            ]
+        );
+
+        // 取引を完了状態に更新
+        $item->status = 'completed';
+        $item->save();
+
+        return redirect()->route('items.index');
+    }
+
 }
 
 

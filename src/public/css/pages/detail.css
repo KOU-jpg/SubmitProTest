@@ -160,6 +160,30 @@ main {
     background: #ff3b2e;
 }
 
+.purchase-form-btn {
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    background: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px 36px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+
+.purchase-form-btn:visited {
+    color: #fff;
+}
+
+.purchase-form-btn:hover {
+    background: #ff3b2e;
+}
+
 .purchase-btn.soldout {
     background: #bbb !important;
     color: #fff !important;

@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+@include('components.header')
+<main>
   <div class="verify-container">
     <p class="verify-message">
     登録していただいたメールアドレスに認証メールを送付しました。<br>
@@ -28,4 +30,5 @@
       </div>
     @endif
   </div>
+</main>
 @endsection

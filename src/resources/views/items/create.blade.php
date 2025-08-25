@@ -11,6 +11,8 @@
 
 
 @section('content')
+@include('components.header')
+<main>
     <h1>商品の出品</h1>
     <form method="POST" action="{{ route('sell') }}" enctype="multipart/form-data" novalidate>
         @csrf
@@ -118,5 +120,5 @@
         </section>
         <button type="submit" class="submit-btn">出品する</button>
     </form>
-
+</main>
 @endsection

@@ -11,6 +11,8 @@
 
 
 @section('content')
+@include('components.header')
+<main>
     <h2>会員登録</h2>
     <form action="{{ route('register') }}" method="post" novalidate>
         @csrf
@@ -49,5 +51,5 @@
         <button type="submit">登録する</button>
     </form>
     <a class="login" href="{{ route('login')}}">ログインはこちら</a>
-
+</main>
 @endsection

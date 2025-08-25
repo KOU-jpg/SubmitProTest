@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Stripe\Webhook;
 use App\Models\Item;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TransactionCompleteMail;
 
 
 class StripeWebhookController extends Controller
@@ -39,14 +41,13 @@ class StripeWebhookController extends Controller
     protected function handleSessionCompleted($session)
     {
         $itemId = $session->metadata['item_id'] ?? null;
-        $buyerId = $session->metadata['buyer_id'] ?? null; // ←追加
+        $buyerId = $session->metadata['buyer_id'] ?? null;
 
         if (!$itemId || !$buyerId) return;
 
         $item = Item::find($itemId);
         if (!$item) return;
 
-        // 購入者IDを設定（ここが抜けていた！）
         $item->update(['buyer_id' => $buyerId]);
 
         $paymentMethod = $session->payment_method_types[0] ?? 'card';
@@ -84,16 +85,32 @@ class StripeWebhookController extends Controller
         $item->update([
             'payment_status' => 'expired',
             'payment_expiry' => null,
+            'status' => 'expired',
         ]);
     }
 
     protected function finalizePayment(Item $item)
     {
+        // ステータス更新
         $item->update([
             'sold_at' => now(),
             'payment_status' => 'paid',
             'payment_expiry' => null,
+            'status' => 'trading',
         ]);
+
+        // 取引相手（購入者）情報取得
+        $buyer = $item->buyer;
+        if (!$buyer) {
+            // 購入者がまだセットされていなければ処理中断
+            return;
+        }
+
+        // 出品者情報取得
+        $seller = $item->user;
+
+        // 取引完了メール送信（出品者宛、または必要に応じて購入者宛も検討）
+        Mail::to($seller->email)->send(new TransactionCompleteMail($item, $buyer, $seller));
     }
 
     protected function setKonbiniPending(Item $item)
@@ -101,6 +118,7 @@ class StripeWebhookController extends Controller
         $item->update([
             'payment_status' => 'pending',
             'payment_expiry' => now()->addDays(3),
+            'status' => 'trading',
         ]);
     }
 }
