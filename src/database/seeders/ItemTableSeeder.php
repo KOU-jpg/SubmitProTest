@@ -49,7 +49,7 @@ class ItemTableSeeder extends Seeder
         'categories' => [3],
         ],
         [
-        'user_id' => 2,
+        'user_id' => 1,
         'condition_id' => 4, // 状態が悪い
         'name' => '革靴',
         'description' => 'クラシックなデザインの革靴',
@@ -60,7 +60,7 @@ class ItemTableSeeder extends Seeder
         'categories' => [1], 
         ],
         [
-        'user_id' => 2,
+        'user_id' => 1,
         'condition_id' => 1, // 良好
         'name' => 'ノートPC',
         'description' => '高性能なノートパソコン',
@@ -82,7 +82,7 @@ class ItemTableSeeder extends Seeder
         'categories' => [2], 
         ],
         [
-        'user_id' => 3,
+        'user_id' => 2,
         'condition_id' => 3, // やや傷や汚れあり
         'name' => 'ショルダーバッグ',
         'description' => 'おしゃれなショルダーバッグ',
@@ -93,7 +93,7 @@ class ItemTableSeeder extends Seeder
         'categories' => [1,7] 
         ],
         [
-        'user_id' => 3,
+        'user_id' => 2,
         'condition_id' => 4, // 状態が悪い
         'name' => 'タンブラー',
         'description' => '使いやすいタンブラー',
@@ -104,7 +104,7 @@ class ItemTableSeeder extends Seeder
         'categories' => [4] 
         ],
         [
-        'user_id' => 3,
+        'user_id' => 2,
         'condition_id' => 1, // 良好
         'name' => 'コーヒーミル',
         'description' => '手動のコーヒーミル',
@@ -115,7 +115,7 @@ class ItemTableSeeder extends Seeder
         'categories' => [4]
         ],
         [
-        'user_id' => 1,
+        'user_id' => 2,
         'condition_id' => 2, // 目立った傷や汚れなし
         'name' => 'メイクセット',
         'description' => '便利なメイクアップセット',
