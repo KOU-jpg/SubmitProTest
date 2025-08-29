@@ -118,11 +118,8 @@ STRIPE_WEBHOOK_SECRET=*****
     - アプリのメール送信設定で使用
 - Web UI: http://localhost:8025/
     - ブラウザでアクセスし、送信されたメールを確認
-# app-laravel
-# FleaMarketApp
-# Membership-Test
 
-##ユーザー情報
+##　ユーザー情報
 - テストユーザー
     - email:test@example.com
     - password:password
@@ -139,6 +136,7 @@ STRIPE_WEBHOOK_SECRET=*****
 
 
 ## PHPUnitを利用したテストに関して
+「.env.testing.example」ファイルを 「.env.testing」ファイルに命名を変更。または、新しく「.env.testing」ファイルを作成してくだい
 以下のコマンド:  
 ```
 ---phpコンテナ内---
