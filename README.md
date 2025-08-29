@@ -121,3 +121,18 @@ STRIPE_WEBHOOK_SECRET=*****
 # app-laravel
 # FleaMarketApp
 # Membership-Test
+
+##ユーザー情報
+- テストユーザー
+    - email:test@example.com
+    - password:password
+    - CO001~CO005の商品データを出品
+
+- テストユーザー2
+    - email:test2@example.com
+    - password:password
+    - CO006~CO010の商品データを出品
+
+- テストユーザー3
+    - email:test3@example.com
+    - password:password# SubmitProtest
