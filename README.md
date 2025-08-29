@@ -136,3 +136,24 @@ STRIPE_WEBHOOK_SECRET=*****
 - テストユーザー3
     - email:test3@example.com
     - password:password# SubmitProtest
+
+
+## PHPUnitを利用したテストに関して
+以下のコマンド:  
+```
+---phpコンテナ内---
+//APP_KEYに新たなテスト用のアプリケーションキーを加える
+php artisan key:generate --env=testing
+---mysqlコンテナ---
+docker-compose exec mysql bash
+
+//テスト用データベースの作成
+mysql -u root -p
+//パスワードはrootと入力
+CREATE DATABASE demo_test;
+
+docker-compose exec php bash
+php artisan migrate:fresh --env=testing
+./vendor/bin/phpunit
+```
+※.env.testingにもStripeのAPIキーを設定してください。  
