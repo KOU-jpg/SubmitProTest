@@ -151,7 +151,7 @@ mysql -u root -p
 CREATE DATABASE demo_test;
 
 docker-compose exec php bash
-php artisan migrate:fresh --env=testing
+php artisan migrate:fresh --env=testing --seed
 ./vendor/bin/phpunit
 ```
 ※.env.testingにもStripeのAPIキーを設定してください。  

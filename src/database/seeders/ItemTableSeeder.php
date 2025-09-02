@@ -22,10 +22,15 @@ class ItemTableSeeder extends Seeder
         'description' => 'スタイリッシュなデザインのメンズ腕時計',
         'brand' => 'Armani',
         'price' => 15000,
+        'buyer_id' => 2,
+        'sold_at' => now(),
+        'payment_status' => 'paid',
+        'status' => 'trading',
         'created_at' => now(),
         'updated_at' => now(),
         'categories' => [1, 3, 5, 13,], 
         ],
+
         [
         'user_id' => 1,
         'condition_id' => 2, // 目立った傷や汚れなし
@@ -121,6 +126,10 @@ class ItemTableSeeder extends Seeder
         'description' => '便利なメイクアップセット',
         'brand' => null,
         'price' => 2500,
+        'buyer_id' => 1,
+        'sold_at' => now(),
+        'payment_status' => 'paid',
+        'status' => 'trading',
         'created_at' => now(),
         'updated_at' => now(),
         'categories' => [1]
