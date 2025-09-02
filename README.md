@@ -5,7 +5,7 @@
 
 ## 環境構築
 **Dockerビルド**
-1. `git@github.com:KOU-jpg/FleaMarketApp.git`
+1. `git@github.com:KOU-jpg/SubmitProTest.git`
 2. DockerDesktopアプリを立ち上げる
 3. docker-compose用.「.env」を作成する  
 「.env.stripe.example」ファイルを 「.env」ファイルに命名を変更。または、新しく「.env」ファイルを作成
