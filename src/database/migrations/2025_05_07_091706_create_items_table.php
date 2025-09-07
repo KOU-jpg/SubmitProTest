@@ -30,6 +30,7 @@ class CreateItemsTable extends Migration
             $table->unsignedInteger('like_count')->default(0);
             $table->timestamp('last_buyer_access')->nullable();
             $table->timestamp('last_seller_access')->nullable();
+            $table->timestamp('latest_message')->nullable();
             $table->timestamps();
             
         });

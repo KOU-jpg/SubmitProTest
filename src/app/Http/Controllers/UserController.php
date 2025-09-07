@@ -34,14 +34,43 @@ public function show(Request $request)
     // 売り手側・買い手側の全アイテムをマージ
     $allRelatedItems = $sellingItems->merge($buyingItems);
 
-    // 取引中の商品だけ別取得（status = trading の商品）
-    $sellingTrading = $sellingItems->filter(function ($item) {
-        return in_array($item->status, ['trading', 'completed']);
-    });
-    $buyingTrading = $buyingItems->filter(function ($item) {
-        return in_array($item->status, ['trading', 'completed']);
-    });
-    $tradingItems = $sellingTrading->merge($buyingTrading);
+// 未読メッセージ数と未読最新日時を追加
+foreach ($allRelatedItems as $item) {
+    $lastAccess = $item->buyer_id === $user->id
+        ? $item->last_buyer_access
+        : $item->last_seller_access;
+
+    $lastAccess = is_null($lastAccess)
+        ? \Carbon\Carbon::create(2000, 1, 1, 0, 0, 0)
+        : \Carbon\Carbon::parse($lastAccess);
+
+    $unreadMessages = $item->transactionMessages
+        ->filter(fn($msg) => $msg->sent_at > $lastAccess && $msg->user_id !== $user->id);
+
+    $item->unread_count = $unreadMessages->count();
+
+    // 未読の最新メッセージ日時を保持（未読なしはnull）
+    $item->latest_unread_message = $unreadMessages->max('sent_at') ?? null;
+}
+
+// 取引中の商品だけ別取得（status = trading または completed の商品）
+$sellingTrading = $sellingItems->filter(fn($item) => in_array($item->status, ['trading', 'completed']));
+$buyingTrading = $buyingItems->filter(fn($item) => in_array($item->status, ['trading', 'completed']));
+$tradingItems = $sellingTrading->merge($buyingTrading);
+
+// 未読有無優先＋日時降順で並び替え
+$tradingItems = $tradingItems->sort(function($a, $b) {
+    // 未読がある方を優先
+    if ($a->unread_count > 0 && $b->unread_count === 0) return -1;
+    if ($a->unread_count === 0 && $b->unread_count > 0) return 1;
+
+    // 両方未読ありか両方なしなら未読最新日時または latest_message で比較（降順）
+    $aDate = $a->latest_unread_message ?? $a->latest_message;
+    $bDate = $b->latest_unread_message ?? $b->latest_message;
+
+    return $bDate <=> $aDate;
+})->values();
+
 
     // 未読メッセージ数計算（全部）
     foreach ($allRelatedItems as $item) {
@@ -62,20 +91,16 @@ public function show(Request $request)
             ->count();
     }
 
-    // 表示する商品をページごとに振り分け
-    if ($page === 'buy') {
-        // 買った商品だけ表示
-        $items = $allRelatedItems->where('buyer_id', $user->id);
-    } elseif ($page === 'sell') {
-        // 売った商品だけ表示
-        $items = $allRelatedItems->where('user_id', $user->id);
-    } elseif ($page === 'trade') {
-        // 取引中の商品表示
-        $items = $tradingItems;
-    } else {
-        $items = $allRelatedItems->where('buyer_id', $user->id);
-    }
-
+// ページごとのアイテム振り分け
+if ($page === 'buy') {
+    $items = $allRelatedItems->where('buyer_id', $user->id);
+} elseif ($page === 'sell') {
+    $items = $allRelatedItems->where('user_id', $user->id);
+} elseif ($page === 'trade') {
+    $items = $tradingItems;
+} else {
+    $items = $allRelatedItems->where('buyer_id', $user->id);
+}
     // 評価の平均値計算（ratee_id = $user->id の平均）
     $averageRating = Rating::where('ratee_id', $user->id)->avg('score');
     // 評価件数

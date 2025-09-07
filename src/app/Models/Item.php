@@ -23,6 +23,7 @@ class Item extends Model
         'status',
         'last_buyer_access',
         'last_seller_access',
+        'latest_message',
     ];
 
     public function user()    {

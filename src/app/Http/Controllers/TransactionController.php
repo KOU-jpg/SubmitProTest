@@ -109,6 +109,13 @@ class TransactionController extends Controller
         $transactionMessage->sent_at = now();
         $transactionMessage->save();
 
+        //取引メッセージ送信日時を items.latest_message にセット
+        $item = Item::find($request->item_id);
+        if ($item) {
+            $item->latest_message = $transactionMessage->sent_at;
+            $item->save();
+        }
+
         return redirect()->back();
     }
 
