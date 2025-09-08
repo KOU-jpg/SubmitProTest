@@ -11,6 +11,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionMessagesTempController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -102,3 +103,8 @@ Route::get('/purchase/cancel/{item_id}', [StripePaymentController::class, 'cance
 
 // Stripe Webhook
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
+
+
+
+    //取引メッセージAPI通信
+    Route::post('/transaction-messages-temp/save', [TransactionMessagesTempController::class, 'save'])->name('transaction_messages_temp.save');

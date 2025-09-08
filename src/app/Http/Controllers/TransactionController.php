@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\TransactionMessage;
+use App\Models\TransactionTempMessages;
 use App\Http\Requests\TransactionMessageRequest;
 
 class TransactionController extends Controller
@@ -74,15 +75,21 @@ class TransactionController extends Controller
                 ->count();
         }
 
+        // 書き途中の一時保存メッセージを取得（なければnull）
+        $tempMessage = TransactionTempMessages::where('user_id', auth()->id())
+            ->where('item_id', $item_id->id)
+            ->first();
+
         return view('users.trade_message', [
             'detailItem' => $item_id,
             'transactionMessages' => $transactionMessages,
             'otherUser' => $otherUser,
-            'items' => $items, // 未読数も含まれた状態でビューへ
+            'items' => $items,
+            'tempMessage' => $tempMessage ? $tempMessage->message : '',
         ]);
     }
 
-
+//取引メッセージ送信
     public function store(TransactionMessageRequest $request)
     {
         $request->validate([
@@ -115,6 +122,10 @@ class TransactionController extends Controller
             $item->latest_message = $transactionMessage->sent_at;
             $item->save();
         }
+        //取引一時メッセージを削除
+        TransactionTempMessages::where('user_id', auth()->id())
+        ->where('item_id', $request->item_id)
+        ->delete();
 
         return redirect()->back();
     }

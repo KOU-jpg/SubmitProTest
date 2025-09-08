@@ -265,7 +265,7 @@
                                 name="message"
                                 class="comment-input"
                                 placeholder="取引メッセージを記入してください"
-                                value="{{ old('message') }}"
+                                value="{{ old('message', $tempMessage) }}"
                                 autocomplete="off"
                             >
                             <input type="file" name="image" id="imageInput" accept="image/*" style="display:none;">
@@ -283,4 +283,31 @@
         </div>
     </div>
 </main>
+
+
+<script>
+  let USER_ID = {{ auth()->id() ?? 'null' }};
+  let ITEM_ID = {{ $detailItem->id ?? 'null' }};
+  let timer = null;
+
+  document.getElementById('message').addEventListener('input', function() {
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+      let data = {
+        user_id: USER_ID,
+        item_id: ITEM_ID,
+        message: document.getElementById('message').value
+      };
+      fetch('/transaction-messages-temp/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(json => console.log('Save success:', json))
+      .catch(error => console.error('Save error:', error));
+    }, 2000);
+  });
+</script>
+
 @endsection
