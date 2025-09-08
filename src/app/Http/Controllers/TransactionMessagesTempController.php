@@ -7,6 +7,7 @@ use App\Models\TransactionTempMessages;
 
 class TransactionMessagesTempController extends Controller
 {
+    //取引メッセージ保存
     public function save(Request $request)
     {
         $request->validate([

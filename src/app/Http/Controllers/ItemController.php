@@ -9,7 +9,8 @@ use App\Models\Comment;
 use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TradeCompletedNotification;
 
 class ItemController extends Controller
 {
@@ -154,6 +155,16 @@ public function showRatingForm(Item $item)
                 'score' => $ratingValue,
             ]
         );
+
+        // 購入完了時にメール送信。購入者が評価した場合のみ。
+        $seller = $item->user;
+
+
+        if ($user->id === $item->buyer_id && $seller->id !== $user->id) {
+            Mail::to($seller->email)->send(new TradeCompletedNotification($item, $user));
+        }
+
+
 
         // 取引を完了状態に更新
         $item->status = 'completed';

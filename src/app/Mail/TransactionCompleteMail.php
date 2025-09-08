@@ -38,7 +38,7 @@ class TransactionCompleteMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('取引完了のお知らせ')
+        return $this->subject('購入完了のお知らせ')
                     ->markdown('emails.transaction_complete');
     }
 }
